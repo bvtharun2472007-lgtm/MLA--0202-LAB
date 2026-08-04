@@ -1,0 +1,25 @@
+import numpy as np
+from sklearn.mixture import GaussianMixture
+X = np.array([
+    [1.0], [1.5], [2.0], [2.5], [3.0],
+    [8.0], [8.5], [9.0], [9.5], [10.0]
+])
+em = GaussianMixture(
+    n_components=2,
+    random_state=42
+)
+em.fit(X)
+labels = em.predict(X)
+print("Expectation-Maximization Algorithm")
+print("-----------------------------------")
+print("\nData Points and Cluster:")
+for i in range(len(X)):
+    print(X[i][0], "-> Cluster", labels[i] + 1)
+print("\nMeans of Clusters:")
+print(em.means_.flatten())
+print("\nCovariances of Clusters:")
+print(em.covariances_.flatten())
+print("\nMixing Weights:")
+print(em.weights_)
+print("\nLog-Likelihood:")
+print(em.score(X) * len(X))
